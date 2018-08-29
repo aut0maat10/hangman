@@ -1,0 +1,13 @@
+.keyContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  grid-gap: 5px;
+  max-width: 750px;
+  /* border:  1px solid red; */
+  margin: 25px auto;
+}
+
+.keyBorder {
+  border: 2px solid lightgrey;
+  border-radius: 4px;
+}

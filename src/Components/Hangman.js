@@ -1,5 +1,6 @@
 import React from 'react';
 import Word from './Word/Word';
+import Keyboard from './Keyboard/Keyboard'
 
 export default class Hangman extends React.Component {
   constructor() {
@@ -33,11 +34,12 @@ export default class Hangman extends React.Component {
     return (
       <div>
         <h1>Hangman</h1>
-        <div>
+        <div className="appContainer">
           <Word 
             randomWord={this.state.randomWord}
             getRandomWord={this.getRandomWord} 
           />
+          <Keyboard />
         </div>
       </div>
     )
