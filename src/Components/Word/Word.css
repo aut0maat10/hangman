@@ -1,5 +1,21 @@
 .wordWrapper {
-  /* border: 1px solid green; */
   max-width: 900px;
-  margin: auto;
+  margin: auto; 
+}
+
+.wordBtn {
+  padding: 10px;
+  border: 1px solid #a4a4a4; 
+  border-radius: 5px;
+}
+
+.wordWrapper ul {
+  padding-left: 0;
+ 
+}
+
+.wordWrapper li {
+  display: inline;
+  list-style: none;
+  font-size: 4em;
 }

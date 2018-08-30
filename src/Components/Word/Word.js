@@ -2,11 +2,15 @@ import React from 'react';
 import './Word.css';
 
 const Word = props => {
-  console.log(props)
+  let letterArr = props.randomWord.split('');
+  let guess = letterArr.map(letter => <li> _ </li>)
   return (
     <div className="wordWrapper">
-      <h3>{props.randomWord}</h3>
-      <button onClick={props.getRandomWord}>New Word</button>
+      <h2>{props.randomWord}</h2>
+      <ul>
+        {guess}
+      </ul>
+      <button className="wordBtn" onClick={props.getRandomWord}>New Word</button>
     </div>
   )
 }
