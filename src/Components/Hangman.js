@@ -7,8 +7,13 @@ export default class Hangman extends React.Component {
     super();
     this.state = {
       words: [],
-      randomWord: 'placeholder'
+      guessedLetters: [],
+      guessCount: 0,
+      randomWord: 'Hit New Game to Play!',
+      blankLetters: []
+      //correctlyGuessed: []
     }
+    this.handleGuesses = this.handleGuesses.bind(this); 
   }
   componentDidMount() {
     this.fetchWordsFromAPI(); 
@@ -26,11 +31,42 @@ export default class Hangman extends React.Component {
 
   getRandomWord = () => {
     let random = this.state.words[Math.floor(this.state.words.length * Math.random())];
-    this.setState({ randomWord: random });
+    let blankLetters = Array(random.length).fill('_');
+    this.setState({ 
+      randomWord: random, 
+      guessedLetters: [], 
+      blankLetters: blankLetters
+    });
+  }
+
+  handleGuesses = (e) => {
+    //
+    let guess = e.target.innerHTML;
+    // e.target.style.border = '2px solid lightpink';
+    // e.target.style.background = 'lightpink';
+    if (this.state.guessedLetters.includes(guess)) return;
+    this.setState({
+      guessedLetters: [...this.state.guessedLetters, guess]
+    });
+    // compare guessed letters to word
+    let correctLetters = this.state.randomWord.split('');
+    let resultArr = this.state.blankLetters;
+    if (correctLetters.includes(guess)) {
+      for (let i = 0; i < correctLetters.length; i++) {
+        if (correctLetters[i] === guess) {
+          resultArr[i] = guess;
+        } 
+      }
+      this.setState({ blankLetters: resultArr })
+    }
+    // let correctlyGuessedLetters = this.state.guessedLetters.map((letter) => {
+    //   if(correctLetters.includes(letter)) {
+    //     this.setState({ correctlyGuessed: [...this.state.correctlyGuessed, correctlyGuessedLetters]})
+    //   }
+    // });
   }
 
   render() {
-    //let randomWord = this.state.words[Math.floor(this.state.words.length * Math.random())]
     return (
       <div>
         <h1>Hangman</h1>
@@ -38,8 +74,11 @@ export default class Hangman extends React.Component {
           <Word 
             randomWord={this.state.randomWord}
             getRandomWord={this.getRandomWord} 
+            guessedLetters={this.state.guessedLetters}
+            blankLetters={this.state.blankLetters}
+            // correctLetters
           />
-          <Keyboard />
+          <Keyboard handleGuesses={this.handleGuesses}/>
         </div>
       </div>
     )

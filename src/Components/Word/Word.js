@@ -3,16 +3,20 @@ import './Word.css';
 
 const Word = props => {
   
-  let letterArr = props.randomWord.split('');s
-  let guess = letterArr.map(letter => <li> _ </li>)
-
+  let blankLetters = props.blankLetters.map((letter, i) => (
+    <li key={i}>{` ${letter} `}</li>
+  ));
+  
+  let guesses = props.guessedLetters;
+  
   return (
     <div className="wordWrapper">
       <h2>{props.randomWord}</h2>
+      {guesses}
       <ul>
-        {guess}
+        {blankLetters}
       </ul>
-      <button className="wordBtn" onClick={props.getRandomWord}>New Word</button>
+      <button className="wordBtn" onClick={props.getRandomWord}>New Game</button>
     </div>
   )
 }

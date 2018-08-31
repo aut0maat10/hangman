@@ -1,14 +1,21 @@
 import React from 'react';
 import './Keyboard.css';
 
-const Keyboard = () => {
+const Keyboard = (props) => {
   
   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
   
-  let characters = alphabet.map((character, i) => <div className="keyBorder">
-      <p key={character}>{character}</p>
-    </div>);
-    
+  let characters = alphabet.map(character => (
+    <div 
+      className="keyBorder" 
+      key={character}
+      onClick={props.handleGuesses}
+      >
+      {character}
+    </div>
+    )
+  );
+
   return (
     <div className="keyContainer">
         {characters}

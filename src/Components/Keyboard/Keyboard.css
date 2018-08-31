@@ -8,6 +8,20 @@
 }
 
 .keyBorder {
+  display: grid;
+  align-items: center;
   border: 2px solid lightgrey;
   border-radius: 4px;
+  height: 50px;
 }
+
+.keyBorder:hover {
+  border: 2px solid lightpink;
+  background-color: lightskyblue;
+  color: darkolivegreen;
+  border-radius: 4px;
+  height: 50px;
+  cursor: pointer;
+}
+
+
