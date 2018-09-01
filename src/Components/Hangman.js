@@ -6,79 +6,127 @@ export default class Hangman extends React.Component {
   constructor() {
     super();
     this.state = {
+      loading: true,
+      newGame: false, 
       words: [],
       guessedLetters: [],
       guessCount: 0,
-      randomWord: 'Hit New Game to Play!',
-      blankLetters: []
-      //correctlyGuessed: []
+      correctGuesses: [],
+      wrongGuesses: [],
+      wrongGuessCount: 6,
+      randomWord: ' ',
+      blankLetters: [],
     }
     this.handleGuesses = this.handleGuesses.bind(this); 
+    this.getRandomWord = this.getRandomWord.bind(this);
   }
-  componentDidMount() {
-    this.fetchWordsFromAPI(); 
+  async componentDidMount() {
+    await this.fetchWordsFromAPI(); 
   }
 
+  // fetch words and store in array,
+  // set up cors-anywhere API on heroku at https://still-basin-71375.herokuapp.com
   fetchWordsFromAPI = () => {
-    fetch("https://cors-anywhere.herokuapp.com/http://app.linkedin-reach.io/words")
+    fetch("https://still-basin-71375.herokuapp.com/http://app.linkedin-reach.io/words?difficulty=1")
       .then(res => res.text())
       .then(text => {
         const data = text.split("\n");
-        this.setState({ words: data });
+        this.setState({ words: data, loading: false });
       })
       .catch(err => console.log(err));
   }
-
+  // select random word from word array
   getRandomWord = () => {
     let random = this.state.words[Math.floor(this.state.words.length * Math.random())];
-    let blankLetters = Array(random.length).fill('_');
+    let blankLetters = Array(random.length).fill("_");
     this.setState({ 
+      newGame: true,
       randomWord: random, 
       guessedLetters: [], 
-      blankLetters: blankLetters
+      wrongGuesses: [],
+      blankLetters: blankLetters,
+      wrongGuessCount: 6,
+      correctGuesses: []
     });
   }
-
+  // handle guesses on key click
   handleGuesses = (e) => {
-    //
     let guess = e.target.innerHTML;
-    // e.target.style.border = '2px solid lightpink';
-    // e.target.style.background = 'lightpink';
-    if (this.state.guessedLetters.includes(guess)) return;
-    this.setState({
-      guessedLetters: [...this.state.guessedLetters, guess]
-    });
-    // compare guessed letters to word
     let correctLetters = this.state.randomWord.split('');
+
+    if (this.state.guessedLetters.includes(guess)) return;
+    if (this.state.wrongGuessCount < 1) {
+      this.setState({
+        blankLetters: correctLetters,
+      });
+      return;
+    }
+
+    this.setState({
+      guessedLetters: [...this.state.guessedLetters, guess],
+      correctGuesses: []
+    });
+    
+    // compare guessed letters to word
     let resultArr = this.state.blankLetters;
-    if (correctLetters.includes(guess)) {
+    let correctGuesses;
+    if (correctLetters.includes(guess) && this.state.wrongGuessCount > 0) {
+      
       for (let i = 0; i < correctLetters.length; i++) {
         if (correctLetters[i] === guess) {
           resultArr[i] = guess;
-        } 
+          correctGuesses = resultArr.join('').replace(/_/g, '').split('');
+        }
+        this.setState({
+          blankLetters: resultArr,
+          correctGuesses: correctGuesses
+        });
       }
-      this.setState({ blankLetters: resultArr })
+    } else {
+      this.setState({
+        wrongGuessCount: this.state.wrongGuessCount - 1,
+        wrongGuesses: [...this.state.wrongGuesses, guess],
+      });
     }
-    // let correctlyGuessedLetters = this.state.guessedLetters.map((letter) => {
-    //   if(correctLetters.includes(letter)) {
-    //     this.setState({ correctlyGuessed: [...this.state.correctlyGuessed, correctlyGuessedLetters]})
-    //   }
-    // });
-  }
+}
 
   render() {
+    const isLoading = this.state.loading;
+    const newGame = this.state.newGame;
+    const wrongGuessCount = this.state.wrongGuessCount;
+    const gameState = wrongGuessCount > 0 ? <h3>
+          {" "}
+          You have {this.state.wrongGuessCount} guesses left! <span role="img" aria-label="smiling emoji">
+            &#x1F603;
+          </span>
+        </h3> : <h2>
+          You Lose... <span role="img" aria-label="sad emoji">
+            &#x1F61E;
+          </span>
+        </h2>;
+    if (isLoading) {
+      return <div className="loader"></div>
+    }
+    
     return (
       <div>
-        <h1>Hangman</h1>
+        <h1 className="title">Hangman</h1>
+        {newGame ? gameState : null}
         <div className="appContainer">
           <Word 
             randomWord={this.state.randomWord}
             getRandomWord={this.getRandomWord} 
             guessedLetters={this.state.guessedLetters}
             blankLetters={this.state.blankLetters}
-            // correctLetters
+            wrongGuesses={this.state.wrongGuesses}
+            wrongGuessCount={this.state.wrongGuessCount}
+            newGame={this.state.newGame}
+            correctGuesses={this.state.correctGuesses}
           />
-          <Keyboard handleGuesses={this.handleGuesses}/>
+          <Keyboard 
+            handleGuesses={this.handleGuesses}
+            newGame={this.state.newGame}
+          />
         </div>
       </div>
     )

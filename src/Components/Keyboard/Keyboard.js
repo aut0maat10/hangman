@@ -4,7 +4,7 @@ import './Keyboard.css';
 const Keyboard = (props) => {
   
   const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-  
+  const newGame = props.newGame;
   let characters = alphabet.map(character => (
     <div 
       className="keyBorder" 
@@ -18,7 +18,7 @@ const Keyboard = (props) => {
 
   return (
     <div className="keyContainer">
-        {characters}
+        {newGame ? characters : null}
     </div>
   )
 }

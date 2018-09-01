@@ -3,7 +3,6 @@
   grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   grid-gap: 5px;
   max-width: 750px;
-  /* border:  1px solid red; */
   margin: 25px auto;
 }
 
@@ -17,11 +16,12 @@
 
 .keyBorder:hover {
   border: 2px solid lightpink;
-  background-color: lightskyblue;
+  background-color: lightcoral;
   color: darkolivegreen;
   border-radius: 4px;
   height: 50px;
   cursor: pointer;
 }
+
 
 

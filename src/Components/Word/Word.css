@@ -5,9 +5,21 @@
 
 .wordBtn {
   padding: 10px;
-  border: 1px solid #a4a4a4; 
+  border: 3px solid lightslategray;
+  font-size: 1em;
+  background-color: lightcoral;
+  color: white;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.wordBtn:focus {
+  outline: none;
+}
+
+.wordBtn:hover {
+  background-color: cornflowerblue;
+  border: 3px solid lightgray;
 }
 
 .wordWrapper ul {
@@ -19,4 +31,12 @@
   display: inline;
   list-style: none;
   font-size: 4em;
+}
+
+.wrongGuesses {
+  color: #263B3B;
+}
+
+p.wrongGuessList {
+  display: inline;
 }

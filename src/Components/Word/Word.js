@@ -3,22 +3,49 @@ import './Word.css';
 
 const Word = props => {
   
-  let blankLetters = props.blankLetters.map((letter, i) => (
+  const { wrongGuesses, newGame, wrongGuessCount, randomWord, blankLetters, correctGuesses } = props;
+  // render correct answer in ul list
+  const correctAnswer = randomWord.split('').map((letter, i) => (
     <li key={i}>{` ${letter} `}</li>
   ));
-  
-  let guesses = props.guessedLetters;
-  
-  return (
-    <div className="wordWrapper">
-      <h2>{props.randomWord}</h2>
-      {guesses}
-      <ul>
-        {blankLetters}
-      </ul>
-      <button className="wordBtn" onClick={props.getRandomWord}>New Game</button>
+  // render blank letters/underscores
+  let blankLetterSequence = blankLetters.map((letter, i) => (
+    <li key={i}>{` ${letter} `}</li>
+  ));
+
+  let wrongGuessesList = wrongGuesses.map(guess => (
+    <p className="wrongGuessList">{guess.toUpperCase()}, </p>
+  ))
+  // render wrong guess count
+  const guessCount = (
+    <div>
+      <h3 className="wrongGuesses">Wrong Guesses: <strong>{wrongGuessesList}</strong></h3>
     </div>
-  )
+  );
+  const winner = <div>
+      <h2>
+        You Win! <span role="img" aria-label="smiling emoji with sunglasses">&#x1F60E;</span>
+      </h2>
+    </div>;
+
+  return <div className="wordWrapper">
+      <div>
+        {newGame ? guessCount : <h2>Press Button To Play!</h2>}
+        {/* <p>{correctGuesses}</p>
+        <p>{randomWord}</p> */}
+      </div>
+      <div>
+        {wrongGuessCount > 0 ? (
+          <ul>{blankLetterSequence}</ul>
+        ) : (
+          <ul>{correctAnswer}</ul>
+        )}
+      </div>
+      <div>{correctGuesses.length === correctAnswer.length ? winner : null}</div>
+      <button className="wordBtn" onClick={props.getRandomWord}>
+        New Game
+      </button>
+    </div>;
 }
 
 export default Word; 
