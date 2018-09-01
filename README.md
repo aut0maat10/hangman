@@ -3,6 +3,8 @@
 #### Hangman is a word guessing game built with ReactJS. 
 Check it out on [Heroku](https://limitless-beyond-28378.herokuapp.com/)
 
+![Hangman App Screenshot](https://i.imgur.com/GFPrroj.png)
+
 ## Basic Structure of App:
 
 ### Components:
@@ -25,9 +27,6 @@ Check it out on [Heroku](https://limitless-beyond-28378.herokuapp.com/)
 # Allow user to use computer keyboard to enter guesses
 # Highlight guessed keys/correct keys on keyboard
 
-
-
-![Hangman App Screenshot](https://i.imgur.com/GFPrroj.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
