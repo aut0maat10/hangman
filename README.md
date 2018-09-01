@@ -8,8 +8,8 @@ Check it out on Heroku: https://limitless-beyond-28378.herokuapp.com/
 To run the app locally, clone the repo, install the dependencies, and run app.
 
 ```
-$ git clone https://github.com/pusher/react-slack-clone
-$ cd react-slack-clone
+$ git clone git@github.com:aut0maat10/hangman.git
+$ cd hangman
 $ npm install
 $ npm start
 ```
