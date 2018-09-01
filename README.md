@@ -41,8 +41,8 @@ open http://localhost:3000
 ## Ideas
 * Allow user to change background color
 * Allow user to choose difficulty level
-# Allow user to use computer keyboard to enter guesses
-# Highlight guessed keys/correct keys on keyboard
+* Allow user to use computer keyboard to enter guesses
+* Highlight guessed keys/correct keys on keyboard
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
