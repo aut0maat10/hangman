@@ -23,6 +23,7 @@ Check it out on [Heroku](https://limitless-beyond-28378.herokuapp.com/)
 * Allow user to change background color
 * Allow user to choose difficulty level
 # Allow user to use computer keyboard to enter guesses
+# Highlight guessed keys/correct keys on keyboard
 
 
 
