@@ -31,8 +31,6 @@ const Word = props => {
   return <div className="wordWrapper">
       <div>
         {newGame ? guessCount : <h2>Press Button To Play!</h2>}
-        {/* <p>{correctGuesses}</p>
-        <p>{randomWord}</p> */}
       </div>
       <div>
         {wrongGuessCount > 0 ? (

@@ -110,7 +110,7 @@ export default class Hangman extends React.Component {
     
     return (
       <div>
-        <h1 className="title">Hangman</h1>
+        <h1 className="title">Guess the Word</h1>
         {newGame ? gameState : null}
         <div className="appContainer">
           <Word 
